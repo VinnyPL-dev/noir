@@ -1,0 +1,33 @@
+[package]
+name = "noir"
+version = "0.1.0"
+description = "NOIR — your digital command center"
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+name = "noir_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-global-shortcut = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+sysinfo = "0.32"
+thiserror = "1"
+sha2 = "0.10"
+base64 = "0.22"
+trash = "5"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = "s"
+panic = "abort"
+strip = true

@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───────────── NOIR Interface System — base ───────────── */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-noir-black font-sans text-noir-paper antialiased;
+    margin: 0;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    font-feature-settings: 'cv11', 'ss03';
+  }
+
+  input,
+  textarea,
+  [contenteditable='true'],
+  .selectable {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  ::selection {
+    background: #ffffff;
+    color: #080808;
+  }
+
+  /* One consistent, quiet focus indicator for keyboard users. */
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.75);
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #303030;
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #4a4a4a;
+    background-clip: content-box;
+  }
+}
+
+@layer components {
+  /* Micro label: the NOIR signature — small, mono, tracked, uppercase. */
+  .nis-label {
+    @apply font-mono text-[10.5px] uppercase tracking-[0.16em] text-noir-silver;
+  }
+
+  .nis-card {
+    @apply rounded-card border border-noir-line bg-noir-charcoal shadow-card;
+  }
+
+  .nis-hairline {
+    @apply border-noir-line/60;
+  }
+}
+
+/* ───────────── Reduced motion ─────────────
+   Set on <html data-motion="reduce"> when the user (or the OS) asks for it.
+   Motion for React is configured separately through <MotionConfig>. */
+[data-motion='reduce'] *,
+[data-motion='reduce'] *::before,
+[data-motion='reduce'] *::after {
+  transition-duration: 0.01ms !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+}
+
+/* ───────────── Page entrance ─────────────
+   Pure CSS on purpose: no hidden starting state, so a page can never get stuck invisible. */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.page-enter {
+  animation: page-enter 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
